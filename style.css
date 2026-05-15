@@ -1,0 +1,319 @@
+:root {
+    --bg-pink: #ffd1dc;
+    --card-pink: rgba(255, 235, 240, 0.85);
+    --border-pink: #ffb7c5;
+    --text-dark: #ff6b81;
+    --text-light: #ff8e9f;
+    --accent-glow: #00ffff;
+    --washi-bg: repeating-linear-gradient(
+        45deg,
+        #ffb7c5,
+        #ffb7c5 10px,
+        #ffd1dc 10px,
+        #ffd1dc 20px
+    );
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background-color: var(--bg-pink);
+    color: var(--text-dark);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.4), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.3), transparent 25%);
+}
+
+.app-container {
+    width: 95vw;
+    height: 95vh;
+    background: radial-gradient(circle at center, #ffe4e9, #ffc4d0);
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(255, 107, 129, 0.3), inset 0 0 0 10px rgba(255, 255, 255, 0.4);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 3px dashed var(--border-pink);
+}
+
+/* Washi Tape Decorations */
+.washi-tape {
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    background: var(--washi-bg);
+    opacity: 0.9;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+.washi-tape::after, .washi-tape::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: inherit;
+    clip-path: polygon(0 0, 100% 10%, 80% 20%, 100% 30%, 80% 40%, 100% 50%, 80% 60%, 100% 70%, 80% 80%, 100% 90%, 0 100%);
+}
+.washi-tape::before {
+    left: -4px;
+    transform: rotate(180deg);
+}
+.washi-tape::after {
+    right: -4px;
+}
+
+.top-left { top: -10px; left: -15px; transform: rotate(-35deg); }
+.top-right { top: -10px; right: -15px; transform: rotate(35deg); }
+.bottom-left { bottom: -10px; left: -15px; transform: rotate(35deg); }
+.bottom-right { bottom: -10px; right: -15px; transform: rotate(-35deg); }
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    z-index: 10;
+}
+
+.title-pill {
+    background: white;
+    padding: 10px 40px;
+    border-radius: 50px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ff6b81;
+    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.2);
+    border: 2px solid #ffe4e9;
+}
+
+/* Content Area */
+.content {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    height: calc(100% - 150px);
+}
+
+.side-panel {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 10;
+}
+
+.panel-card {
+    background: var(--card-pink);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.panel-card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #ff4757;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.features-card ul {
+    list-style: none;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+}
+.dot.red { background: #ff4757; color: #ff4757; }
+.dot.green { background: #2ed573; color: #2ed573; }
+
+.instruction {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px dashed var(--border-pink);
+}
+
+/* Canvas Area */
+.canvas-container {
+    flex: 1;
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.5);
+    border: 4px solid white;
+}
+
+video#webcam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); /* Mirror */
+    opacity: 0.8; /* Slightly dim video to make neon pop */
+}
+
+canvas#three-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none; /* Let clicks pass through if needed */
+}
+
+/* Right Panel */
+.sticker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.sticker {
+    background: white;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.sticker:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.sticker-note {
+    font-size: 0.8rem;
+    text-align: center;
+    color: #ff6b81;
+    font-style: italic;
+}
+
+/* Bottom Panel */
+.bottom-panel {
+    margin-top: 20px;
+    background: var(--card-pink);
+    border-radius: 20px;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.toolbar {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.tool-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tool-section span {
+    font-family: 'Fredoka', sans-serif;
+    color: #ff4757;
+    font-weight: 600;
+}
+
+.color-picker {
+    display: flex;
+    gap: 10px;
+}
+
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.color-btn.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px currentColor;
+}
+
+.effect-btn {
+    background: white;
+    border: 2px solid #ffe4e9;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: #ff6b81;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.effect-btn.active {
+    background: #ff6b81;
+    color: white;
+    box-shadow: 0 0 15px #ff6b81;
+}
+
+/* Floating 3D Elements container */
+#stickers-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.floating-sticker {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}

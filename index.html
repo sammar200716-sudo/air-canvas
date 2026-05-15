@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Air Drawing</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Washi tape decorations -->
+        <div class="washi-tape top-left"></div>
+        <div class="washi-tape top-right"></div>
+        <div class="washi-tape bottom-left"></div>
+        <div class="washi-tape bottom-right"></div>
+
+        <!-- Main Interface -->
+        <div class="header">
+            <div class="title-pill">💕 AIR CANVAS 💕</div>
+        </div>
+
+        <div class="content">
+            <!-- Left Panel -->
+            <div class="side-panel left-panel">
+                <div class="panel-card features-card">
+                    <h3>FEATURES</h3>
+                    <ul>
+                        <li>✨ Draw in 3D with index finger</li>
+                        <li>🌈 Multi-colored neon brush</li>
+                        <li>🖐️ Hand tracking with webcam</li>
+                        <li>🤏 Pinch to clear canvas</li>
+                    </ul>
+                </div>
+                <div class="panel-card status-card">
+                    <div class="status-indicator">
+                        <span id="tracking-status-dot" class="dot red"></span>
+                        <span id="tracking-status-text">Hand Tracking OFF</span>
+                    </div>
+                </div>
+                <div class="panel-card how-to-card">
+                    <h3>HOW TO USE</h3>
+                    <div class="instruction">
+                        <strong>1. DRAW</strong><br>
+                        Point index finger
+                    </div>
+                    <div class="instruction">
+                        <strong>2. CLEAR</strong><br>
+                        Pinch thumb & index
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Canvas Area -->
+            <div class="canvas-container">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="three-canvas"></canvas>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="side-panel right-panel">
+                <div class="panel-card stickers-card">
+                    <h3>PHOTOBOOTH STICKERS</h3>
+                    <div class="sticker-grid" id="sticker-library">
+                        <!-- Stickers will be injected by app.js -->
+                    </div>
+                    <button id="brush-mode-btn" class="effect-btn active" style="width: 100%; margin-top: 15px;">🖍️ Neon Brush Mode</button>
+                    <p class="sticker-note" style="margin-top: 10px;">Point to stamp stickers!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Panel -->
+        <div class="bottom-panel">
+            <div class="toolbar">
+                <div class="tool-section">
+                    <span>BRUSH</span>
+                    <div class="color-picker">
+                        <div class="color-btn active" style="background: linear-gradient(45deg, #ff00ff, #00ffff);"></div>
+                        <div class="color-btn" style="background: #ff6b6b;"></div>
+                        <div class="color-btn" style="background: #feca57;"></div>
+                        <div class="color-btn" style="background: #48dbfb;"></div>
+                        <div class="color-btn" style="background: #1dd1a1;"></div>
+                    </div>
+                </div>
+                <div class="tool-section">
+                    <span>EFFECTS</span>
+                    <button class="effect-btn active">✨ Sparkle</button>
+                    <button class="effect-btn active">🌟 Glow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Import maps polyfill -->
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <!-- Import map for Three.js and MediaPipe -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+            "@mediapipe/tasks-vision": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm"
+        }
+    }
+    </script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
